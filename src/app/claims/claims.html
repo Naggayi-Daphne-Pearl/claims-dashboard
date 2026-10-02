@@ -5,15 +5,32 @@
     <p>Error loading pages</p>
   } @else {
     <div>
+<a [routerLink]="['/claims/new']">New Claim</a>
       @for (e of claims(); track e.id) {
         <div>
-          <p>{{ e.id }}</p>
-          <p>{{ e.amount | number }}</p>
-          <p>{{ e.member_name }}</p>
-          <p>{{ e.member_no }}</p>
-          <p>{{ e.status }}</p>
-          <a [routerLink]="['/claims', e.id]">View Claim Detail</a>
+          <table class="table">
+            <caption>
+              CLAIMS
+            </caption>
+            <thead>
+              <tr>
+                <th>Member Name</th>
+                <th>Member Number</th>
+                <th>Statud</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ e.member_name }}</td>
+                <td>{{ e.member_no }}</td>
+                <td>{{ e.status}}<td>
+              </tr>
+            </tbody>
+          </table>
+
         </div>
+      } @empty {
+        <p>No claims to load</p>
       }
     </div>
   }

@@ -1,0 +1,62 @@
+<a routerLink="/claims">← Back to claims</a>
+
+<section class="card">
+  @if (error()) {
+    <p role="alert" class="field-error">{{ error() }}</p>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="save()" class="form-grid">
+    <div class="field">
+      <label for="member_name" class="required">Member name</label>
+      <input id="member_name" class="input" formControlName="member_name" />
+      @if (form.controls.member_name.touched && form.controls.member_name.invalid) {
+        <span class="field-error">Member name is required</span>
+      }
+    </div>
+
+    <div class="field">
+      <label for="member_no" class="required">Member no</label>
+      <input id="member_no" class="input" formControlName="member_no" placeholder="M200000" />
+      @if (form.controls.member_no.touched && form.controls.member_no.invalid) {
+        <span class="field-error">Member number is required</span>
+      }
+    </div>
+
+    <div class="field">
+      <label for="type" class="required">Claim type</label>
+      <select id="type" class="select" formControlName="type">
+        <option value="" disabled>Select a type</option>
+        <option>Age benefit</option>
+        <option>Withdrawal</option>
+        <option>Invalidity</option>
+      </select>
+      @if (form.controls.type.touched && form.controls.type.invalid) {
+        <span class="field-error">Claim type is required</span>
+      }
+    </div>
+
+    <div class="field">
+      <label for="amount" class="required">Amount</label>
+      <input id="amount" type="number" class="input" formControlName="amount" />
+      @if (form.controls.amount.touched && form.controls.amount.invalid) {
+        <span class="field-error">Enter an amount greater than 0</span>
+      }
+    </div>
+
+    <div class="field">
+      <label for="status">Status</label>
+      <select id="status" class="select" formControlName="status">
+        <option>Pending</option>
+        <option>Approved</option>
+        <option>Rejected</option>
+      </select>
+    </div>
+
+    <div class="form-actions">
+      <a routerLink="/claims" class="btn btn-secondary">Cancel</a>
+      <button type="submit" class="btn btn-primary" [disabled]="saving()">
+        {{ saving() ? 'Saving…' : id ? 'Save changes' : 'Add claim' }}
+      </button>
+    </div>
+  </form>
+</section>
