@@ -1,0 +1,20 @@
+<div>
+  @if (loading()) {
+    <p>loading Claims</p>
+  } @else if (error()) {
+    <p>Error loading pages</p>
+  } @else {
+    <div>
+      @for (e of claims(); track e.id) {
+        <div>
+          <p>{{ e.id }}</p>
+          <p>{{ e.amount | number }}</p>
+          <p>{{ e.member_name }}</p>
+          <p>{{ e.member_no }}</p>
+          <p>{{ e.status }}</p>
+          <a [routerLink]="['/claims', e.id]">View Claim Detail</a>
+        </div>
+      }
+    </div>
+  }
+</div>

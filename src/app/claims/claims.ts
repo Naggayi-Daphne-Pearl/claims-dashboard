@@ -1,8 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { ClaimItem, ClaimsServices } from './claims-service';
+import { DecimalPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [],
+  imports: [DecimalPipe, RouterLink],
   selector: 'app-claims',
   styleUrl: './claims.css',
   templateUrl: './claims.html',
@@ -26,8 +28,8 @@ export class Claims {
         this.loading.set(false);
       },
       error: () => {
-        this.error.set('ERROR LOADING CLAIMS')
-      }
+        this.error.set('ERROR LOADING CLAIMS');
+      },
     });
   }
 }
