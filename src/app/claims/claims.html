@@ -5,29 +5,44 @@
     <p>Error loading pages</p>
   } @else {
     <div>
-<a [routerLink]="['/claims/new']">New Claim</a>
+      <a [routerLink]="['/claims/new']">New Claim</a>
+      
       @for (e of claims(); track e.id) {
         <div>
+          
           <table class="table">
-            <caption>
-              CLAIMS
-            </caption>
             <thead>
               <tr>
-                <th>Member Name</th>
-                <th>Member Number</th>
-                <th>Statud</th>
+                <th>ID</th>
+                <th>Member name</th>
+                <th>Member no</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>{{ e.member_name }}</td>
-                <td>{{ e.member_no }}</td>
-                <td>{{ e.status}}<td>
-              </tr>
+              @for (c of claims(); track c.id) {
+                <tr>
+                  <td>{{ c.id }}</td>
+                  <td>{{ c.member_name }}</td>
+                  <td>{{ c.member_no }}</td>
+                  <td>
+                    <span
+                      class="badge"
+                      [class.badge-ok]="c.status === 'Approved'"
+                      [class.badge-warn]="c.status === 'Pending'"
+                      [class.badge-bad]="c.status === 'Rejected'"
+                    >
+                      {{ c.status }}
+                    </span>
+                  </td>
+                </tr>
+              } @empty {
+                <tr class="table-empty">
+                  <td colspan="4">No claims to load</td>
+                </tr>
+              }
             </tbody>
           </table>
-
         </div>
       } @empty {
         <p>No claims to load</p>

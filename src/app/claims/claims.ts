@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ClaimItem, ClaimsServices } from './claims-service';
 import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -15,10 +15,10 @@ export class Claims {
   claims = signal<ClaimItem[]>([]);
   loading = signal(true);
   error = signal('');
-
   constructor() {
     this.load();
   }
+
   load() {
     this.loading.set(true);
     this.error.set('');
@@ -32,4 +32,10 @@ export class Claims {
       },
     });
   }
+
+  total = computed(() => this.claims().length)
+  approved = computed(() => this.claims().filter((c) => c.status === 'Approved').length)
+  pending = computed(()=>this.claims().filter((c) => c.status === 'Pending').length)
+  rejected = computed(() => this.claims().filter((c) => c.status === 'Rejected').length)
+
 }
